@@ -1,3 +1,4 @@
+# Import packages
 library(tidyverse)
 library(dplyr)
 library(readr)
@@ -63,7 +64,8 @@ length(unique(criminal_offences$LGA))
 criminal_offences$LGA <- toupper(criminal_offences$LGA)
 
 
-
+# Expand dataset to include all combinations of Year, LGA, Offence and Type, so that LGAs with no offences of a particular type recorded 
+# for a particular year are included in the dataset with a rate of 0
 full_scaffold <- expand(criminal_offences, Year, LGA, Offence, Type)
 criminal_offences <- full_join(criminal_offences, full_scaffold)
 

@@ -7,7 +7,6 @@ library(ggplot2)
 library(leaflet)
 library(scales)
 library(stringr)
-
 library(shiny)
 library(bslib)
 
@@ -21,7 +20,6 @@ offence_rate_polygons <- offence_rate_polygons[!is.na(offence_rate_polygons$Year
 
 # Calculate total rates for the whole state
 whole_state_data <- aggregate(Rate ~ Year + Offence + Type, data = offence_rate_data, FUN = sum)
-
 whole_state_type_total_data <- aggregate(Rate ~ Year + Type, data = whole_state_data, FUN = sum)
 
 # Calculate increase in offences from 2016 to 2025
@@ -33,6 +31,7 @@ increase_data <- offence_rate_data_2025 %>%
   mutate(Rate = Rate.2025 - Rate.2016)
 
 increase_data <- subset(increase_data, select = -c(Year.2016, Year.2025, Rate.2016, Rate.2025))
+
 
 # Join increase data with polygons
 increase_polygons <- left_join(lgas, increase_data, by = c("LGA_NAME" = "LGA"))
@@ -48,7 +47,6 @@ type_total_polygons <- type_total_polygons[!is.na(type_total_polygons$Year), ]
 # Calculate increase in total offences from 2016 to 2025
 type_total_data_2016 <- subset(type_total_data, type_total_data$Year==2016)
 type_total_data_2025 <- subset(type_total_data, type_total_data$Year==2025)
-
 
 type_total_increase_data <- type_total_data_2025 %>%
   left_join(type_total_data_2016, by = c("LGA", "Type"), suffix = c(".2025", ".2016")) %>%
@@ -130,12 +128,14 @@ server <- function(input, output) {
     html_fix <- htmltools::tags$style(type = "text/css", css_fix)  # Convert CSS to HTML
     
     if(input$map_type == "Offence rate"){
+      # Set colour palette for map where map displays offence rate
       pal <- colorNumeric(
         palette = c("skyblue", "darkblue"), 
         domain = map_data$Rate,
         na.color = "grey"
       )
       
+      # Setup leaflet map, including legend and labels for each LGA
       leaflet(map_data) %>% 
         addTiles() %>%
         addPolygons(fillColor = ~pal(Rate), 
@@ -154,12 +154,14 @@ server <- function(input, output) {
         )
     }
     else{
+      # Set colour palette for map where map displays increase in offence rate from 2016 to 2025
       pal <- colorNumeric(
         palette = c("red", "white", "darkblue"), 
         domain = map_data$Rate,
         na.color = "grey"
       )
       
+      # Setup leaflet map, including legend and labels for each LGA
       leaflet(map_data) %>% 
         addTiles() %>%
         addPolygons(fillColor = ~pal(Rate), 

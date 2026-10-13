@@ -2,6 +2,7 @@
 
 #include <vector>
 
+// Class to represent a matrix
 class Matrix{
     private:
         int rows;
@@ -12,16 +13,12 @@ class Matrix{
         Matrix(int in_rows, int in_cols) : rows(in_rows), cols(in_cols), v(in_rows*in_cols){
         }
 
-        // Matrix(int in_rows, int in_cols){
-        //     rows=in_rows;
-        //     cols=in_cols;
-        //     v.resize(in_rows*in_cols);
-        // }
-
+        // Function to return a pointer to the underlying data of the matrix
         double* data(){ 
             return v.data(); 
         }
 
+        // Function to access an element of the matrix at row i and column j
         double& at(int i, int j){ 
             return v.at(i*cols + j); 
         }
@@ -44,6 +41,7 @@ class Matrix{
         }
 };
 
+// Operator overload to add two matrices together in the normal way
 Matrix operator+(Matrix M1, Matrix M2){
     int rows = M1.N_rows(); // should be the same as M2.N
     int cols = M1.N_cols();
@@ -56,6 +54,7 @@ Matrix operator+(Matrix M1, Matrix M2){
     return M_result;
 }
 
+// Operator overload to perform matrix multiplication between two matrices
 Matrix operator*(Matrix matrixA, Matrix matrixB){
     int rows = matrixA.N_rows();
     int cols = matrixB.N_cols();
@@ -85,5 +84,16 @@ Matrix multiply_elementwise(Matrix A, Matrix B){
         }
     }
 
+    return result;
+}
+
+// Function to compute sum of all elements in a matrix
+double sum(Matrix A, int rows, int cols){
+    double result=0;
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            result = result + A.at(i,j);
+        }
+    }
     return result;
 }

@@ -21,3 +21,12 @@ std::vector<double> operator*(std::vector<double> v, double s){
     }
     return result;
 }
+
+// Function to compute sum of all elements in a vector
+double vector_sum(std::vector<double> vector){
+    double result = 0;
+    for(int i=0; i<vector.size(); i++){
+        result = result + vector.at(i);
+    }
+    return result;
+}

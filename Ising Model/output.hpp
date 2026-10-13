@@ -2,7 +2,7 @@
 
 #include <vector>
 
-// Function to output data to a text file
+// Function to output data to a text file, with columns separated by spaces
 // output_data is a vector of vectors. It is assumed that the first vector of data will form the first column of the 
 // text file, etc
 // rows = length of each vector in output_data (ie the number of rows required in the output text file)

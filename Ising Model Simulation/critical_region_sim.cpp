@@ -180,5 +180,5 @@ int main(){
 
     // Output the rescaled magnetisation per spin and magnetic susceptibility per spin to a text file for plotting
     std::vector<std::vector<double>> Q3_output = {T_out, X, M_av};
-    output(Q3_output, T_out.size(), Q3_output.size(), "a2_part2_2_Q3.txt");
+    output(Q3_output, T_out.size(), Q3_output.size(), "critical_region.txt");
 }

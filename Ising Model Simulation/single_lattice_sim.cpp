@@ -139,14 +139,14 @@ int main(){
 
         // Calculate averages
 
-        // Average energy
+        // Average energy per spin
         E_av.at(l) = vector_sum(E_vec)/((double)E_vec.size());
 
         // Energy error
         double E_variance = variance(E_vec, E_av.at(l));
         E_error.at(l) = sqrt(E_variance/((double)Ns));
 
-        // Average magnetisation
+        // Average magnetisation per spin
         M_av.at(l) = vector_sum(M_vec)/((double)M_vec.size());
 
         // Magnetisation error
